@@ -1,0 +1,121 @@
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="css/ionic.css">
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/geturi.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        var NIP = decodeURI(getUrlVars()["NIP"]);
+        var Nama_dosen = decodeURI(getUrlVars()["Nama_dosen"]);
+        var Alamat_dosen_ = decodeURI(getUrlVars()["Alamat_dosen"]);
+        var Telp_dosen = decodeURI(getUrlVars()["Telp_dosen"]);
+		var Email_dosen = decodeURI(getUrlVars()["Email_dosen"]);
+        var alamat = decodeURI(getUrlVars()["alamat"]);
+        
+        $("#NIP").val(NIP);
+        $("#Nama_dosen").val(Nama_dosen);
+        $("#Alamat_dosen").val(Alamat_dosen);
+        $("#Telp_dosen").val(Telp_dosen);
+		$("#Email_dosen").val(Email_dosen);
+        $("#alamat").val(alamat);
+        
+        $("#update").click(function() {
+            var NIP = $("#NIP").val();
+            var Nama_dosen = $("#Nama_dosen").val();
+            var Alamat_dosen = $("#Alamat_dosen").val();
+            var Telp_dosen = $("#Telp_dosen").val();
+		var Email_dosen = $("#Email_dosen").val();
+            var alamat = $("#alamat").val();
+            
+            var dataString = "NIP=" + NIP + "&Nama_dosen=" + Nama_dosen + "&Alamat_dosen=" + Alamat_dosen + "&Telp_dosen=" + Telp_dosen + "&Email_dosen=" + Email_dosen + "&alamat=" + alamat +  "&update=";
+            $.ajax({
+                type: "POST",
+                url: "http://localhost/AppCordovaPkl/www/update.php",
+                data: dataString,
+                crossDomain: true,
+                cache: false,
+                beforeSend: function() {
+                    $("#update").val('Connecting...');
+                },
+                success: function(data) {
+                    if (data == "success") {
+                        alert("Updated");
+                        $("#update").val("Update");
+                    } else if (data == "error") {
+                        alert("error");
+                    }
+                }
+            });
+
+        });
+        $("#delete").click(function() {
+            var NIP = $("#NIP").val();
+            var dataString = "NIP=" + NIP + "&delete=";
+            $.ajax({
+                type: "GET",
+                url: "http://localhost/AppCordovaPkl/www/delete.php",
+                data: dataString,
+                crossDomain: true,
+                cache: false,
+                beforeSend: function() {
+                    $("#delete").val('Connecting...');
+                },
+                success: function(data) {
+                    if (data == "success") {
+                        alert("Deleted");
+                        $("#delete").val("Delete");
+                    } else if (data == "error") {
+                        alert("error");
+                    }
+                }
+            });
+
+        });
+    });
+    </script>
+</head>
+
+<body>
+    <div class="bar bar-header bar-positive" style="margin-bottom:80px;">
+        <a href="index.html" class="button button-clear">Home</a>
+        <h1 class="title">Update Database</h1>
+        <a class="button button-clear" href="readjson.html">Read JSON</a>
+    </div>
+    <br/>
+    <br/>
+    <div class="list">
+       
+        <div class="item">
+            <label>NIP</label>
+            <input type="text" id="NIP" value="" />
+        </div>
+        <div class="item">
+            <label>Nama_dosen</label>
+            <input type="text" id="Nama_dosen" value="" />
+        </div>
+        <div class="item">
+            <label>Alamat_dosen</label>
+            <input type="text" id="Alamat_dosen" value="" />
+        </div>
+        <div class="item">
+            <label>Telp_dosen</label>
+            <input type="text" id="Telp_dosen" value="" />
+        </div>
+	<div class="item">
+            <label>Email_dosen</label>
+            <input type="text" id="Email_dosen" value="" />
+        </div>
+        <div class="item">
+            <label>alamat</label>
+            <input type="text" id="alamat" value="" />
+        </div>
+       
+        <div class="item">
+            <input type="button" id="update" class="button button-block" value="Update" />
+            <input type="button" id="delete" class="button button-block" value="Delete" />
+        </div>
+    </div>
+</body>
+
+</html>

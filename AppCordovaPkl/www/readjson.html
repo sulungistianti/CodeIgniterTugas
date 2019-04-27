@@ -1,0 +1,37 @@
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="css/ionic.css">
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        var url = "http://localhost/AppCordovaPkl/www/json.php";
+        $.getJSON(url, function(result) {
+            console.log(result);
+            $.each(result, function(i, field) {
+                var NIP = field.NIP;
+                var Nama_dosen = field.Nama_dosen;
+				var Alamat_dosen = field.Alamat_dosen_dosen;
+                var Telp_dosen = field.Telp_dosen;
+                var Email_dosen = field.Email_dosen;
+                var alamat = field.alamat;
+                
+                $("#listview").append("<a class='item' href='form.html?NIP=" + NIP + "&Nama_dosen=" + Nama_dosen + "&Alamat_dosen=" + Alamat_dosen + "&Telp_dosen=" + Telp_dosen + "&Email_dosen=" + Email_dosen + "&alamat=" + alamat +  "'><span class='item-note'>" + NIP + "</span><h2>" + Nama_dosen + " </h2><p>" + Alamat_dosen + "</p></a>" + Telp_dosen + "</p></a>" + Email_dosen + "</p></a>" + alamat + "</p></a>");
+            });
+        });
+    });
+    </script>
+</head>
+
+<body>
+    <div class="bar bar-header bar-positive" style="margin-bottom:80px;">
+        <a href="index.html" class="button button-clear">Home</a>
+        <h1 class="title">Read Database (JSON)</h1>
+    </div>
+    <br/>
+    <br/>
+    <ul class="list" id="listview">
+    </ul>
+</body>
+
+</html>
